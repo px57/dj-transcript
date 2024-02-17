@@ -32,6 +32,9 @@ class Transcript:
     def get_transcript(self) -> Dict:
         """Returns transcript in text format from audio file."""
         file = { 'file': self.audio_file }
+        print ('#' * 234)
+        print (settings.AWS_IA_SERVER_URL + "/transcript")
+        print (self.server_url('transcript'))
         response = requests.get(url=settings.AWS_IA_SERVER_URL + "/transcript", json=file)
         if response.status_code != 200:
             return { 'text': 'Transcription failed' }
@@ -44,6 +47,9 @@ class Transcript:
             'file': self.audio_file 
         }
 
+        print ('>>>' * 234)
+        print (settings.AWS_IA_SERVER_URL + "/subtitles")
+        print (self.server_url('subtitles'))
         response = requests.get(url=settings.AWS_IA_SERVER_URL + "/subtitles", json=file)
 
         if response.status_code != 200:
