@@ -2,6 +2,7 @@
 from typing import Dict
 from django.conf import settings
 import requests
+import os
 
 class Transcript:
     """
@@ -17,6 +18,16 @@ class Transcript:
         @param audio_file : The audio filename
         """
         self.audio_file = audio_file
+
+    def server_url(self, path: str) -> str:
+        """
+        Returns the server URL.
+        Args:
+            path: The path to the server
+        """
+        if settings.DEBUG:
+            return os.path.join(settings.TEST_TRANSCRIPT_SERVER_URL, path)
+        return os.path.join(settings.AWS_IA_SERVER_URL, path)
 
     def get_transcript(self) -> Dict:
         """Returns transcript in text format from audio file."""
