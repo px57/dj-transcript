@@ -3,6 +3,8 @@ from django.conf import settings
 from kernel.http.serialize.media import serialize_file_fields
 from transcript.transcript import Transcript
 from kernel.http import Response
+# csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from uuid import uuid4
 import os
 
@@ -33,6 +35,7 @@ def generate_url(path):
     url = settings.ADRESS_HOST + settings.MEDIA_URL + path
     return url
 
+@csrf_exempt
 def transcript(request):
     """
     Transcribe an audio file.
@@ -49,10 +52,12 @@ def transcript(request):
     
     transcript = Transcript(generate_url(audio_file_name))
     result = transcript.get_transcript()
-    print (result)
+    res.result = result
+    print ("------------------------------------------->>>>")
+    print (res.result)
     return res.success()
 
-
+@csrf_exempt
 def subtitles(request):
     """
     Get subtitles for an audio file.
@@ -69,5 +74,7 @@ def subtitles(request):
 
     transcript = Transcript(generate_url(audio_file_name))
     result = transcript.get_subtitles()
-    print (result)
+    res.result = result
+    print ("------------------------------------------->>>>")
+    print (res.result)
     return res.success()

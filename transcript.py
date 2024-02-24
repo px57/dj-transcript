@@ -22,7 +22,6 @@ class Transcript:
         """
         self.audio_file = audio_file
         self.path_file_audio = unserialize_file_fields(None, audio_file)
-        print (self.path_file_audio * 1000 )
 
     def server_url(self, path: str) -> str:
         """
@@ -58,6 +57,8 @@ class Transcript:
 
             try: 
                 content = response.content.json()
+                print ('#########################' * 233224)
+                print (content)
             except:
                 return error
             
@@ -84,6 +85,8 @@ class Transcript:
 
             try: 
                 content = response.content.json()
+                print ('#########################' * 233224)
+                print (content)
             except:
                 return error
             
@@ -98,8 +101,13 @@ class Transcript:
         file = { 
             'file': self.audio_file 
         }
-        response = requests.get(url=settings.AWS_IA_SERVER_URL + "/subtitles", json=file)
-
+        response = requests.get(
+            url=settings.AWS_IA_SERVER_URL + "/subtitles", 
+            json=file
+        )
+        print (response.content)
         if response.status_code != 200:
-            return None
+            return {
+                'text': 'Subtitles failed'
+            }
         return response.json()
