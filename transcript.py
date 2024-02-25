@@ -22,6 +22,8 @@ class Transcript:
         """
         self.audio_file = audio_file
         self.path_file_audio = unserialize_file_fields(None, audio_file)
+        print ('$' * 233)
+        print (self.audio_file)
 
     def server_url(self, path: str) -> str:
         """

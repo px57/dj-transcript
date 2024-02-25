@@ -53,8 +53,6 @@ def transcript(request):
     transcript = Transcript(generate_url(audio_file_name))
     result = transcript.get_transcript()
     res.result = result
-    print ("------------------------------------------->>>>")
-    print (res.result)
     return res.success()
 
 @csrf_exempt
@@ -75,6 +73,4 @@ def subtitles(request):
     transcript = Transcript(generate_url(audio_file_name))
     result = transcript.get_subtitles()
     res.result = result
-    print ("------------------------------------------->>>>")
-    print (res.result)
     return res.success()
