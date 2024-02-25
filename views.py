@@ -70,6 +70,10 @@ def subtitles(request):
     audio_file = request.FILES['file']
     audio_file_name = media_save(audio_file)
 
+    print ('*' * 233)
+    print (audio_file_name)
+    
+
     transcript = Transcript(generate_url(audio_file_name))
     result = transcript.get_subtitles()
     res.result = result
